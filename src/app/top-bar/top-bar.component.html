@@ -1,0 +1,22 @@
+<div>
+  <button mat-flat-button color="primary" [routerLink]="['/']">
+    <mat-icon>menu_book</mat-icon>
+    <span> コース</span>
+  </button>
+  <button mat-flat-button color="primary" [routerLink]="['/course']">
+    コース一覧
+  </button>
+  <button mat-flat-button color="primary" [routerLink]="['/student']">
+    学生管理
+  </button>
+</div>
+<div>
+  <button mat-flat-button color="primary" [matMenuTriggerFor]="menu">
+    <mat-icon>account_circle</mat-icon>
+    <span> username</span>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="signup">新規登録</button>
+    <button mat-menu-item>ログアウト</button>
+  </mat-menu>
+</div>

@@ -1,0 +1,9 @@
+:host {
+  background-color: #f7f7f9;
+  padding: 24px;
+  padding-bottom: 24px;
+  display: block;
+}
+table {
+  width: 100%;
+}

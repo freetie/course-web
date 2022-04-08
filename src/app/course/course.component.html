@@ -1,0 +1,10 @@
+<mat-card *ngFor="let course of courses">
+  <mat-card-title>{{ course.title }}</mat-card-title>
+  <img mat-card-image [src]="course.picture" />
+  <mat-card-content>
+    {{ course.desc }}
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" type="submit">登録する</button>
+  </mat-card-actions>
+</mat-card>
