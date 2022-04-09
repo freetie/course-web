@@ -25,6 +25,7 @@ import { StudentComponent } from './student/student.component';
 import { VideoComponent } from './video/video.component';
 import { CourseDetailComponent } from './course/course-detail/course-detail.component';
 import { BuyCourseDialogComponent } from './course/buy-course-dialog/buy-course-dialog.component';
+import { CourseInfoDialogComponent } from './video/course-info-dialog/course-info-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { BuyCourseDialogComponent } from './course/buy-course-dialog/buy-course-
     VideoComponent,
     CourseDetailComponent,
     BuyCourseDialogComponent,
+    CourseInfoDialogComponent,
   ],
   imports: [
     BrowserModule,

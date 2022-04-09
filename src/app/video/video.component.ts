@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { CourseInfoDialogComponent } from './course-info-dialog/course-info-dialog.component';
 import { Course, testCourses } from '../course';
 import { Video, testVideos } from '../video';
 
@@ -14,7 +16,7 @@ export class VideoComponent implements OnInit {
   videosQueryingCourseId: number | undefined;
   displayedColumns = ['index', 'title', 'action'];
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.queryCourses();
@@ -47,4 +49,22 @@ export class VideoComponent implements OnInit {
     });
   }
 
+  createCourse() {
+    const dialogRef = this.dialog.open(CourseInfoDialogComponent, {
+      autoFocus: false,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
+
+  modifyCourse(course: Course) {
+    const dialogRef = this.dialog.open(CourseInfoDialogComponent, {
+      autoFocus: false,
+      data: course,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
 }
