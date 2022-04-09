@@ -5,6 +5,7 @@
     {{ course.desc }}
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="primary" type="submit">登録する</button>
+    <button mat-raised-button color="accent" type="submit" (click)="buy(course)">購入</button>
+    <button mat-raised-button color="primary" type="submit" [routerLink]="['/course', course.id]">始める</button>
   </mat-card-actions>
 </mat-card>

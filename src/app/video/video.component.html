@@ -1,0 +1,62 @@
+<div style="text-align: right;margin-bottom: 16px;">
+  <button mat-mini-fab color="primary">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let course of courses" (opened)="onPanelOpened(course)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{course.title}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{course.desc}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <table mat-table [dataSource]="videos[course.id]">
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef>番号</th>
+          <td mat-cell *matCellDef="let video">{{ video.index }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef>タイトル</th>
+          <td mat-cell *matCellDef="let video">{{ video.title }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;">操作</th>
+          <td mat-cell *matCellDef="let video;let index = index;" style="text-align: center;width: 184px;">
+            <button mat-icon-button color="primary" [disabled]="index === 0">
+              <mat-icon>arrow_upward</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" [disabled]="index == videos[course.id].length - 1">
+              <mat-icon>arrow_downward</mat-icon>
+            </button>
+            <button mat-icon-button color="primary">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </ng-template>
+    <mat-action-row>
+      <button mat-icon-button color="primary">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="primary">
+        <mat-icon>video_call</mat-icon>
+      </button>
+      <button mat-icon-button color="warn">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>

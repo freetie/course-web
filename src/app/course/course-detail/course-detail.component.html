@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="router.navigate(['/course'])">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <h2>Course</h2>
+</mat-toolbar>
+<div style="display: flex;">
+  <div style="width: 200px;">
+    <mat-selection-list #video [multiple]="false"
+      (selectionChange)="onSelectionChange(video.selectedOptions.selected[0].value)">
+      <mat-list-option *ngFor="let video of videos" [value]="video.id" [selected]="selectedVideo?.id === video.id">
+        {{video.title}}
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
+  <div class="video-container">
+    <video controls *ngIf="selectedVideo">
+      <source [src]="selectedVideo?.url">
+    </video>
+  </div>
+</div>

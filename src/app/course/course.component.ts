@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-interface Course {
-  title: string;
-  desc: string;
-  picture: string;
-}
+import { MatDialog } from '@angular/material/dialog';
+import { BuyCourseDialogComponent } from './buy-course-dialog/buy-course-dialog.component';
+import { Course, testCourses } from '../course';
 
 @Component({
   selector: 'app-course',
@@ -14,7 +11,9 @@ interface Course {
 export class CourseComponent implements OnInit {
   courses: Course[] = [];
   querying = false;
-  constructor() {}
+  constructor(
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.queryCourses();
@@ -23,30 +22,19 @@ export class CourseComponent implements OnInit {
     return new Promise((resolve) => {
       this.querying = true;
       setTimeout(() => {
-        const testData = [
-          {
-            title: 'HTML & CSS',
-            desc: 'Webページの見た目をつくる言語',
-            picture:
-              'https://ddb6ltykpq547.cloudfront.net/language/1/icon_for_web/2157d1e7aa48b6d370b46ad6c2c71732',
-          },
-          {
-            title: 'JavaScript',
-            desc: '多様な可能性を秘めたフロントエンド言語',
-            picture:
-              'https://ddb6ltykpq547.cloudfront.net/language/26/icon_for_web/b91f687669df25708bdd41dc1ebc0082',
-          },
-          {
-            title: 'Java',
-            desc: '大規模開発からモバイルアプリまで、汎用的なプログラミング言語',
-            picture:
-              'https://ddb6ltykpq547.cloudfront.net/language/7/icon_for_web/215b012918da862620380f1388e813a0',
-          },
-        ];
-        this.courses = testData;
+        this.courses = testCourses;
         this.querying = false;
-        resolve(testData);
+        resolve(testCourses);
       }, 1000);
+    });
+  }
+  buy(course: Course) {
+    const dialogRef = this.dialog.open(BuyCourseDialogComponent, {
+      autoFocus: false,
+      data: course,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
     });
   }
 }

@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { SignupComponent } from './signup/signup.component';
 import { CourseComponent } from './course/course.component';
 import { StudentComponent } from './student/student.component';
+import { VideoComponent } from './video/video.component';
+import { CourseDetailComponent } from './course/course-detail/course-detail.component';
 
 const routes: Routes = [
   {
@@ -14,8 +16,16 @@ const routes: Routes = [
     component: CourseComponent,
   },
   {
+    path: 'course/:id',
+    component: CourseDetailComponent,
+  },
+  {
     path: 'student',
     component: StudentComponent,
+  },
+  {
+    path: 'video',
+    component: VideoComponent,
   },
   { path: '', redirectTo: '/course', pathMatch: 'full' },
 ];
@@ -24,4 +34,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

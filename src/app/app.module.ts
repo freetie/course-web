@@ -11,6 +11,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +22,9 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { SignupComponent } from './signup/signup.component';
 import { CourseComponent } from './course/course.component';
 import { StudentComponent } from './student/student.component';
+import { VideoComponent } from './video/video.component';
+import { CourseDetailComponent } from './course/course-detail/course-detail.component';
+import { BuyCourseDialogComponent } from './course/buy-course-dialog/buy-course-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +33,9 @@ import { StudentComponent } from './student/student.component';
     SignupComponent,
     CourseComponent,
     StudentComponent,
+    VideoComponent,
+    CourseDetailComponent,
+    BuyCourseDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,8 +50,12 @@ import { StudentComponent } from './student/student.component';
     MatCardModule,
     MatTableModule,
     MatPaginatorModule,
+    MatExpansionModule,
+    MatDialogModule,
+    MatListModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
