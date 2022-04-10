@@ -34,9 +34,6 @@
             <button mat-icon-button color="primary" [disabled]="index == videos[course.id].length - 1">
               <mat-icon>arrow_downward</mat-icon>
             </button>
-            <button mat-icon-button color="primary">
-              <mat-icon>edit</mat-icon>
-            </button>
             <button mat-icon-button color="warn">
               <mat-icon>delete</mat-icon>
             </button>
@@ -51,7 +48,7 @@
       <button mat-icon-button color="primary" (click)="modifyCourse(course)">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button color="primary">
+      <button mat-icon-button color="primary" (click)="uploadVideo(course)">
         <mat-icon>video_call</mat-icon>
       </button>
       <button mat-icon-button color="warn">

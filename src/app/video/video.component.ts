@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CourseInfoDialogComponent } from './course-info-dialog/course-info-dialog.component';
+import { VideoUploadDialogComponent } from './video-upload-dialog/video-upload-dialog.component'
 import { Course, testCourses } from '../course';
 import { Video, testVideos } from '../video';
 
@@ -60,6 +61,16 @@ export class VideoComponent implements OnInit {
 
   modifyCourse(course: Course) {
     const dialogRef = this.dialog.open(CourseInfoDialogComponent, {
+      autoFocus: false,
+      data: course,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
+
+  uploadVideo(course: Course) {
+    const dialogRef = this.dialog.open(VideoUploadDialogComponent, {
       autoFocus: false,
       data: course,
     });

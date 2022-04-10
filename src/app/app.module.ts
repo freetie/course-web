@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,6 +27,7 @@ import { VideoComponent } from './video/video.component';
 import { CourseDetailComponent } from './course/course-detail/course-detail.component';
 import { BuyCourseDialogComponent } from './course/buy-course-dialog/buy-course-dialog.component';
 import { CourseInfoDialogComponent } from './video/course-info-dialog/course-info-dialog.component';
+import { VideoUploadDialogComponent } from './video/video-upload-dialog/video-upload-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,12 +40,14 @@ import { CourseInfoDialogComponent } from './video/course-info-dialog/course-inf
     CourseDetailComponent,
     BuyCourseDialogComponent,
     CourseInfoDialogComponent,
+    VideoUploadDialogComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     MatIconModule,
     MatButtonModule,
     MatMenuModule,

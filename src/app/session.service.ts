@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 interface Account {
   username: string;
-  roles: string[];
+  role: string;
 }
 
 @Injectable({
@@ -10,14 +11,14 @@ interface Account {
 })
 export class SessionService {
   currentAccount: Account | undefined;
-  constructor() {}
+  constructor(private http: HttpClient) { }
 
   queryCurrentAccount() {
     return new Promise((resolve) => {
       setTimeout(() => {
         const testAccount = {
           username: 'username',
-          roles: ['Admin'],
+          role: 'ADMIN',
         };
         this.currentAccount = testAccount;
         resolve(testAccount);
