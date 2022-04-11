@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Video, testVideos } from '../../video';
+import { Video, testVideos } from '../../../entity/video';
 
 
 @Component({

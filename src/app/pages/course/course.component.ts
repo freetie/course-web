@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BuyCourseDialogComponent } from './buy-course-dialog/buy-course-dialog.component';
-import { Course, testCourses } from '../course';
+import { Course, testCourses } from '../../entity/course';
 
 @Component({
   selector: 'app-course',

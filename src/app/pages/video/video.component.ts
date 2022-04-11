@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CourseInfoDialogComponent } from './course-info-dialog/course-info-dialog.component';
 import { VideoUploadDialogComponent } from './video-upload-dialog/video-upload-dialog.component'
-import { Course, testCourses } from '../course';
-import { Video, testVideos } from '../video';
+import { Course, testCourses } from '../../entity/course';
+import { Video, testVideos } from '../../entity/video';
 
 @Component({
   selector: 'app-video',

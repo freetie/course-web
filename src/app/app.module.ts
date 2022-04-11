@@ -16,18 +16,21 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+import { httpInterceptorProviders } from './http-interceptors';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TopBarComponent } from './top-bar/top-bar.component';
-import { SignupComponent } from './signup/signup.component';
-import { CourseComponent } from './course/course.component';
-import { StudentComponent } from './student/student.component';
-import { VideoComponent } from './video/video.component';
-import { CourseDetailComponent } from './course/course-detail/course-detail.component';
-import { BuyCourseDialogComponent } from './course/buy-course-dialog/buy-course-dialog.component';
-import { CourseInfoDialogComponent } from './video/course-info-dialog/course-info-dialog.component';
-import { VideoUploadDialogComponent } from './video/video-upload-dialog/video-upload-dialog.component';
+import { TopBarComponent } from './layout/top-bar/top-bar.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { CourseComponent } from './pages/course/course.component';
+import { StudentComponent } from './pages/student/student.component';
+import { VideoComponent } from './pages/video/video.component';
+import { CourseDetailComponent } from './pages/course/course-detail/course-detail.component';
+import { BuyCourseDialogComponent } from './pages/course/buy-course-dialog/buy-course-dialog.component';
+import { CourseInfoDialogComponent } from './pages/video/course-info-dialog/course-info-dialog.component';
+import { VideoUploadDialogComponent } from './pages/video/video-upload-dialog/video-upload-dialog.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +44,7 @@ import { VideoUploadDialogComponent } from './video/video-upload-dialog/video-up
     BuyCourseDialogComponent,
     CourseInfoDialogComponent,
     VideoUploadDialogComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,9 +63,10 @@ import { VideoUploadDialogComponent } from './video/video-upload-dialog/video-up
     MatExpansionModule,
     MatDialogModule,
     MatListModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSnackBarModule,
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

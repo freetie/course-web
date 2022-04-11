@@ -1,0 +1,37 @@
+<div>
+  <button mat-flat-button color="primary" [routerLink]="['/']">
+    <mat-icon>menu_book</mat-icon>
+    <span> コース</span>
+  </button>
+  <button
+    *ngFor="let link of navLinks"
+    mat-flat-button
+    color="primary"
+    [class]="router.url === link.path ? 'actived' : ''"
+    [routerLink]="link.path"
+  >
+    {{ link.title }}
+  </button>
+</div>
+<div>
+  <button mat-flat-button color="primary" [matMenuTriggerFor]="menu">
+    <mat-icon>account_circle</mat-icon>
+    <span> {{ sessionService.currentAccount?.username }}</span>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button
+      mat-menu-item
+      routerLink="login"
+      *ngIf="!sessionService.currentAccount"
+    >
+      ログイン
+    </button>
+    <button
+      mat-menu-item
+      *ngIf="sessionService.currentAccount"
+      (click)="sessionService.logout()"
+    >
+      ログアウト
+    </button>
+  </mat-menu>
+</div>
