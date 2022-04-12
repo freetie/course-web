@@ -4,6 +4,15 @@ export interface Video {
   title: string;
   url: string;
 }
+export interface VideoUploadSignature {
+  policy: string;
+  accessid: string;
+  signature: string;
+  dir: string;
+  host: string;
+  expire: number;
+}
+
 export const testVideos = [
   {
     id: 1,
