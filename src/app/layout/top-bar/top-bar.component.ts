@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Account } from 'src/app/entity/account';
 import { SessionService } from '../../service/session.service';
 
 @Component({
@@ -22,7 +23,12 @@ export class TopBarComponent implements OnInit {
       path: '/student',
     },
   ];
-  constructor(public router: Router, public sessionService: SessionService) {}
+  currentAccount: Account | undefined;
+  constructor(public router: Router, public sessionService: SessionService) {
+    this.sessionService.currentAccount.subscribe((data) => {
+      this.currentAccount = data;
+    });
+  }
 
   ngOnInit(): void {
     this.sessionService.queryCurrentAccount();

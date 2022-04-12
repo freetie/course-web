@@ -47,7 +47,6 @@ export class StudentComponent implements OnInit {
   }
 
   onPage(event: PageEvent) {
-    console.log(event);
     this.queryStudents(event.pageIndex + 1, event.pageSize);
   }
 

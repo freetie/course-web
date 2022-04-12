@@ -5,7 +5,23 @@
     {{ course.desc }}
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="accent" type="submit" (click)="buy(course)">購入</button>
-    <button mat-raised-button color="primary" type="submit" [routerLink]="['/course', course.id]">始める</button>
+    <button
+      mat-raised-button
+      color="accent"
+      type="submit"
+      *ngIf="!isOwnCourse(course.id)"
+      (click)="placeOrder(course)"
+    >
+      購入
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      *ngIf="isOwnCourse(course.id)"
+      [routerLink]="['/course', course.id]"
+    >
+      始める
+    </button>
   </mat-card-actions>
 </mat-card>
