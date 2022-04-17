@@ -2,7 +2,6 @@ export interface Video {
   id: number;
   index: number;
   title: string;
-  url: string;
 }
 export interface VideoUploadSignature {
   policy: string;

@@ -16,6 +16,9 @@ export class BaseInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
+    if (request.url.includes('http')) {
+      return next.handle(request);
+    }
     return next.handle(
       request.clone({
         url: `${BASE_URL}${request.url}`,

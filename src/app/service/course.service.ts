@@ -3,13 +3,30 @@ import { HttpClient } from '@angular/common/http';
 import { Course } from '../entity/course';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CourseService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   queryCourses() {
     return this.http.get<Course[]>('/course');
+  }
+
+  createCourse(course: Partial<Course>) {
+    return new Promise((resolve, reject) => {
+      this.http.post(`/course`, course).subscribe({
+        next: resolve,
+        error: reject,
+      });
+    });
+  }
+
+  updateCourse(courseId: number, data: Partial<Course>) {
+    return new Promise((resolve, reject) => {
+      this.http.put(`/course/${courseId}`, data).subscribe({
+        next: resolve,
+        error: reject,
+      });
+    });
   }
 }

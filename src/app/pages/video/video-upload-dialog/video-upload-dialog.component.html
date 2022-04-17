@@ -1,6 +1,6 @@
-<form [formGroup]="videoForm">
+<form [formGroup]="videoForm" (ngSubmit)="onSubmit()">
   <h1 mat-dialog-title>ビデオを追加</h1>
-  <div mat-dialog-content style="width: 400px;">
+  <div mat-dialog-content style="width: 400px">
     <div>
       <mat-form-field appearance="fill">
         <mat-label>タイトル</mat-label>
@@ -8,11 +8,18 @@
       </mat-form-field>
     </div>
     <div>
-      <input type="file" accept="video/*" (change)="onFileSelected($event)" #fileUpload>
+      <input
+        type="file"
+        accept="video/*"
+        (change)="onFileSelected($event)"
+        #fileUpload
+      />
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="dialogRef.close()">キャンセル</button>
-    <button mat-button [mat-dialog-close]="true" color="primary" [mat-dialog-close]="videoForm.value">追加</button>
+    <button mat-button type="button" (click)="dialogRef.close()">
+      キャンセル
+    </button>
+    <button mat-button color="primary" type="submit">追加</button>
   </div>
 </form>

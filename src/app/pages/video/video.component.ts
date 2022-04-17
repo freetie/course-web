@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CourseInfoDialogComponent } from './course-info-dialog/course-info-dialog.component';
-import { VideoUploadDialogComponent } from './video-upload-dialog/video-upload-dialog.component'
-import { Course, testCourses } from '../../entity/course';
-import { Video, testVideos } from '../../entity/video';
+import { VideoUploadDialogComponent } from './video-upload-dialog/video-upload-dialog.component';
+import { Course } from '../../entity/course';
+import { CourseService } from 'src/app/service/course.service';
+import { Video } from '../../entity/video';
+import { VideoService } from 'src/app/service/video.service';
 
 @Component({
   selector: 'app-video',
   templateUrl: './video.component.html',
-  styleUrls: ['./video.component.css']
+  styleUrls: ['./video.component.css'],
 })
 export class VideoComponent implements OnInit {
   courses: Course[] = [];
@@ -17,19 +19,25 @@ export class VideoComponent implements OnInit {
   videosQueryingCourseId: number | undefined;
   displayedColumns = ['index', 'title', 'action'];
 
-  constructor(private dialog: MatDialog) { }
+  constructor(
+    private dialog: MatDialog,
+    private courseService: CourseService,
+    private videoService: VideoService
+  ) {}
 
   ngOnInit(): void {
     this.queryCourses();
   }
   queryCourses() {
-    return new Promise((resolve) => {
-      this.coursesQuerying = true;
-      setTimeout(() => {
-        this.courses = testCourses;
+    this.coursesQuerying = true;
+    this.courseService.queryCourses().subscribe({
+      next: (data) => {
+        this.courses = data;
         this.coursesQuerying = false;
-        resolve(testCourses);
-      }, 1000);
+      },
+      error: () => {
+        this.coursesQuerying = false;
+      },
     });
   }
 
@@ -40,22 +48,25 @@ export class VideoComponent implements OnInit {
   }
 
   queryVideos(courseId: number) {
-    return new Promise((resolve) => {
-      this.videosQueryingCourseId = courseId;
-      setTimeout(() => {
-        this.videos[courseId] = testVideos;
+    this.videosQueryingCourseId = courseId;
+    this.videoService
+      .queryVideos(courseId)
+      .then((res) => {
+        this.videos[courseId] = res;
+      })
+      .finally(() => {
         this.videosQueryingCourseId = undefined;
-        resolve(testVideos);
-      }, 1000);
-    });
+      });
   }
 
   createCourse() {
     const dialogRef = this.dialog.open(CourseInfoDialogComponent, {
       autoFocus: false,
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.queryCourses();
+      }
     });
   }
 
@@ -64,7 +75,7 @@ export class VideoComponent implements OnInit {
       autoFocus: false,
       data: course,
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
     });
   }
@@ -72,10 +83,15 @@ export class VideoComponent implements OnInit {
   uploadVideo(course: Course) {
     const dialogRef = this.dialog.open(VideoUploadDialogComponent, {
       autoFocus: false,
-      data: course,
+      data: {
+        courseId: course.id,
+        index: this.videos[course.id]?.length || 0,
+      },
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.queryVideos(course.id);
+      }
     });
   }
 }
