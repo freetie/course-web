@@ -75,4 +75,26 @@ export class VideoService {
       });
     });
   }
+
+  queryVideoUrl(videoId: number) {
+    return new Promise<string>((resolve, reject) => {
+      this.http.get<string>(`/video/${videoId}/url`).subscribe({
+        next: resolve,
+        error: reject,
+      });
+    });
+  }
+
+  changeIndex(courseId: number, videoId: number, direction: string) {
+    return new Promise((resolve, reject) => {
+      this.http
+        .patch(`/course/${courseId}/video/${videoId}/index`, {
+          direction,
+        })
+        .subscribe({
+          next: resolve,
+          error: reject,
+        });
+    });
+  }
 }

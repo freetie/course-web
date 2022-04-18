@@ -1,23 +1,26 @@
-<div style="text-align: right;margin-bottom: 16px;">
+<div style="text-align: right; margin-bottom: 16px">
   <button mat-mini-fab color="primary" (click)="createCourse()">
     <mat-icon>add</mat-icon>
   </button>
 </div>
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let course of courses" (opened)="onPanelOpened(course)">
+  <mat-expansion-panel
+    *ngFor="let course of courses"
+    (opened)="onPanelOpened(course)"
+  >
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{course.title}}
+        {{ course.title }}
       </mat-panel-title>
       <mat-panel-description>
-        {{course.desc}}
+        {{ course.desc }}
       </mat-panel-description>
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
       <table mat-table [dataSource]="videos[course.id]">
         <ng-container matColumnDef="index">
           <th mat-header-cell *matHeaderCellDef>番号</th>
-          <td mat-cell *matCellDef="let video">{{ video.index }}</td>
+          <td mat-cell *matCellDef="let video">{{ video.index + 1 }}</td>
         </ng-container>
 
         <ng-container matColumnDef="title">
@@ -26,12 +29,28 @@
         </ng-container>
 
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef style="text-align: center;">操作</th>
-          <td mat-cell *matCellDef="let video;let index = index;" style="text-align: center;width: 184px;">
-            <button mat-icon-button color="primary" [disabled]="index === 0">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center">
+            操作
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let video; let index = index"
+            style="text-align: center; width: 184px"
+          >
+            <button
+              mat-icon-button
+              color="primary"
+              [disabled]="video.index === 0"
+              (click)="changeIndex(course.id, video.id, 'forward')"
+            >
               <mat-icon>arrow_upward</mat-icon>
             </button>
-            <button mat-icon-button color="primary" [disabled]="index == videos[course.id].length - 1">
+            <button
+              mat-icon-button
+              color="primary"
+              [disabled]="video.index == videos[course.id].length - 1"
+              (click)="changeIndex(course.id, video.id, 'backward')"
+            >
               <mat-icon>arrow_downward</mat-icon>
             </button>
             <button mat-icon-button color="warn">

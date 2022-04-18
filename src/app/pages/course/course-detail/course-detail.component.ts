@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Video, testVideos } from '../../../entity/video';
-
+import { Video } from '../../../entity/video';
+import { VideoService } from '../../../service/video.service';
 
 @Component({
   selector: 'app-course-detail',
   templateUrl: './course-detail.component.html',
-  styleUrls: ['./course-detail.component.css']
+  styleUrls: ['./course-detail.component.css'],
 })
 export class CourseDetailComponent implements OnInit {
   videos: Video[] = [];
   querying = false;
   selectedVideo: Video | undefined;
-  constructor(private route: ActivatedRoute, public router: Router) { }
+  selectedVideoUrl: string | undefined;
+  constructor(
+    private route: ActivatedRoute,
+    public router: Router,
+    private videoService: VideoService
+  ) {}
 
   ngOnInit(): void {
     const courseId = Number(this.route.snapshot.paramMap.get('id'));
@@ -20,19 +25,26 @@ export class CourseDetailComponent implements OnInit {
   }
 
   queryVideos(courseId: number) {
-    console.log(courseId)
-    return new Promise((resolve) => {
-      this.querying = true;
-      setTimeout(() => {
-        this.videos = testVideos;
-        this.selectedVideo = testVideos[0];
-        this.querying = false;
-        resolve(testVideos);
-      }, 1000);
-    });
+    this.querying = true;
+    this.videoService
+      .queryVideos(courseId)
+      .then((videos) => {
+        this.videos = videos;
+        if (videos.length > 0) {
+          this.selectedVideo = videos[0];
+          this.videoService.queryVideoUrl(videos[0].id).then((url) => {
+            this.selectedVideoUrl = url;
+          });
+        }
+      })
+      .finally(() => (this.querying = false));
   }
 
   onSelectionChange(videoId: number) {
-    this.selectedVideo = this.videos.find(item => item.id === videoId);
+    this.selectedVideoUrl = undefined;
+    this.selectedVideo = this.videos.find((item) => item.id === videoId);
+    this.videoService.queryVideoUrl(this.selectedVideo!.id).then((url) => {
+      this.selectedVideoUrl = url;
+    });
   }
 }

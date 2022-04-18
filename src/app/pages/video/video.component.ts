@@ -94,4 +94,10 @@ export class VideoComponent implements OnInit {
       }
     });
   }
+
+  changeIndex(courseId: number, videoId: number, direction: string) {
+    this.videoService.changeIndex(courseId, videoId, direction).then(() => {
+      this.queryVideos(courseId);
+    });
+  }
 }
