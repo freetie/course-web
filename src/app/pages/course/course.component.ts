@@ -7,12 +7,14 @@ import { OrderService } from 'src/app/service/order.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SessionService } from 'src/app/service/session.service';
 import { Order } from 'src/app/entity/order';
+import { Account } from 'src/app/entity/account';
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.css'],
 })
 export class CourseComponent implements OnInit {
+  currentAccount: Account | undefined;
   courses: Course[] = [];
   orders: Order[] = [];
   querying = false;
@@ -23,7 +25,9 @@ export class CourseComponent implements OnInit {
     private courseService: CourseService,
     private orderService: OrderService
   ) {
+    this.currentAccount = this.sessionService.getCurrentAccount();
     this.sessionService.currentAccount.subscribe((account) => {
+      this.currentAccount = account;
       if (!account) {
         this.orders = [];
         return;

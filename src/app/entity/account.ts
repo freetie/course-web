@@ -1,6 +1,6 @@
 export interface Account {
   id: number;
   username: string;
-  role: string;
+  role: 'ADMIN' | 'TEACHER' | 'STUDENT';
   createdAt: string;
 }
