@@ -9,7 +9,10 @@
       mat-raised-button
       color="accent"
       type="submit"
-      *ngIf="currentAccount?.role === 'STUDENT' && !isOwnCourse(course.id)"
+      *ngIf="
+        (!currentAccount || currentAccount?.role === 'STUDENT') &&
+        !isOwnCourse(course.id)
+      "
       (click)="placeOrder(course)"
     >
       購入
@@ -18,7 +21,10 @@
       mat-raised-button
       color="primary"
       type="submit"
-      *ngIf="isOwnCourse(course.id) || currentAccount?.role !== 'STUDENT'"
+      *ngIf="
+        isOwnCourse(course.id) ||
+        (currentAccount && currentAccount?.role !== 'STUDENT')
+      "
       [routerLink]="['/course', course.id]"
     >
       始める

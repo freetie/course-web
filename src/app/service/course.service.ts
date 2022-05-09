@@ -29,4 +29,13 @@ export class CourseService {
       });
     });
   }
+
+  deleteCourse(courseId: number) {
+    return new Promise((resolve, reject) => {
+      this.http.delete(`/course/${courseId}`).subscribe({
+        next: resolve,
+        error: reject,
+      });
+    });
+  }
 }

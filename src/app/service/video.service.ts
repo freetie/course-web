@@ -97,4 +97,15 @@ export class VideoService {
         });
     });
   }
+
+  delete(courseId: number, videoId: number) {
+    return new Promise((resolve, reject) => {
+      this.http
+        .delete(`/course/${courseId}/video/${videoId}`)
+        .subscribe({
+          next: resolve,
+          error: reject,
+        });
+    }); 
+  }
 }

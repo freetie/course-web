@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CourseInfoDialogComponent } from './course-info-dialog/course-info-dialog.component';
 import { VideoUploadDialogComponent } from './video-upload-dialog/video-upload-dialog.component';
 import { Course } from '../../entity/course';
@@ -21,6 +22,7 @@ export class VideoComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private courseService: CourseService,
     private videoService: VideoService
   ) {}
@@ -76,7 +78,9 @@ export class VideoComponent implements OnInit {
       data: course,
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      if (result) {
+        this.queryCourses();
+      }
     });
   }
 
@@ -99,5 +103,27 @@ export class VideoComponent implements OnInit {
     this.videoService.changeIndex(courseId, videoId, direction).then(() => {
       this.queryVideos(courseId);
     });
+  }
+
+  deleteCourse(course: Course) {
+    if (confirm('このコースを削除しますか')) {
+      this.courseService.deleteCourse(course.id).then(() => {
+        this.snackBar.open('削除成功', undefined, {
+          duration: 1500,
+        });
+        this.queryCourses();
+      });
+    }
+  }
+
+  deleteVideo(courseId: number, videoId: number) {
+    if (confirm('このビデオを削除しますか')) {
+      this.videoService.delete(courseId, videoId).then(() => {
+        this.snackBar.open('削除成功', undefined, {
+          duration: 1500,
+        });
+        this.queryVideos(courseId);
+      });
+    }
   }
 }

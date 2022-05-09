@@ -60,6 +60,7 @@ export class CourseComponent implements OnInit {
       });
   }
   isOwnCourse(courseId: number) {
+    if (!this.currentAccount) return false;
     return this.orders.findIndex((order) => order.courseId === courseId) !== -1;
   }
   placeOrder(course: Course) {

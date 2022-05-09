@@ -3,12 +3,14 @@ import { Router } from '@angular/router';
 import { Account } from 'src/app/entity/account';
 import { SessionService } from '../../service/session.service';
 
-const defaultLinks = [
-  {
-    title: 'コース一覧',
-    path: '/course',
-  },
-];
+const generateDefaultLinks = () => {
+  return [
+    {
+      title: 'コース一覧',
+      path: '/course',
+    },
+  ];
+};
 
 @Component({
   selector: 'app-top-bar',
@@ -16,33 +18,35 @@ const defaultLinks = [
   styleUrls: ['./top-bar.component.css'],
 })
 export class TopBarComponent implements OnInit {
-  navLinks = defaultLinks;
+  navLinks = generateDefaultLinks();
   currentAccount: Account | undefined;
   constructor(public router: Router, public sessionService: SessionService) {
     this.sessionService.currentAccount.subscribe((data) => {
       this.currentAccount = data;
+      const navLinks = generateDefaultLinks();
       if (data?.role === 'TEACHER') {
-        this.navLinks = [
-          ...defaultLinks,
-          {
-            title: 'ビデオ管理',
-            path: '/video',
-          },
-        ];
+        navLinks.push({
+          title: 'ビデオ管理',
+          path: '/video',
+        });
       }
       if (data?.role === 'ADMIN') {
-        this.navLinks = [
-          ...defaultLinks,
-          {
-            title: '学生管理',
-            path: '/student',
-          },
-        ];
+        navLinks.push({
+          title: '学生管理',
+          path: '/student',
+        });
       }
+      this.navLinks = navLinks;
     });
   }
 
   ngOnInit(): void {
     this.sessionService.queryCurrentAccount();
+  }
+
+  onLogout() {
+    this.sessionService.logout().then(() => {
+      this.router.navigateByUrl('/');
+    });
   }
 }
